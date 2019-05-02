@@ -13,12 +13,12 @@
         <main>
             <div class="form-area">
                 <h1>Sign in</h1>
-                <form action="" id="loginform">
+                <form id="loginform">
                     <p>
                         <label for="username">Username</label>
                         <input type="text" name="username" id="username" class="validate"
                             title="Please enter your username" required aria-describedby="username-desc">
-                        <div class="desc" id="username-desc">Type your username</div>
+                        <span class="desc" id="username-desc">Type your username</span>
                     </p>
                     <p>
                         <label for="password">Password</label>
@@ -26,9 +26,9 @@
                             maxlength="12" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$"
                             title="Please include at least 1 uppercase character, 1 lowercase character, and 1 number."
                             aria-describedby="password-desc">
-                        <div class="desc" id="password-desc">Passwords include at least 1 uppercase character, 1
+                        <span class="desc" id="password-desc">Passwords include at least 1 uppercase character, 1
                             lowercase
-                            character, and 1 number</div>
+                            character, and 1 number</span>
                     </p>
                     <div class="alert">
 
@@ -56,35 +56,33 @@
             <address>1600 Spring Hill Road Suite 400 Vienna, VA 22182</address>
         </footer>
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function () {
+            var sendButton = $("form button#send");
+            var userField = $("input#username");
+            var passwordField = $("input#password");
+            $("form input").on(' keydown', function (target) {
 
+                if (userField.val().length && passwordField.val().length) {
+                    $("#send").attr("disabled", false);
+                } else {
+                    $("#send").attr("disabled", true);
+                }
+            });
+            $("#loginform").submit(function (event) {
+                if (userField.val() === 'level' && passwordField.val() === 'Access123') {
+                    alert("You have signed in!");
+                } else {
+                    $('.alert').append(
+                        '<div role="alert">Sorry, the username and  password combination was not recognized.</div>'
+                    );
+                }
+                event.preventDefault();
+            });
+        });
+    </script>
 </body>
-<script src="jquery.min.js"></script>
-<script>
-    $(function () {
-        var sendButton = $("form button#send");
-        var userField = $("input#username");
-        var passwordField = $("input#password");
-        $("form input").on(' keydown', function (target) {
 
-            if (userField.val().length && passwordField.val().length) {
-                $("#send").attr("disabled", false);
-                console.log('good')
-            } else {
-                $("#send").attr("disabled", true);
-                console.log('bad')
-            }
-        });
-        $("#loginform").submit(function (event) {
-            if (userField.val() === 'level' && passwordField.val() === 'Access123') {
-                alert("You have signed in!");
-            } else {
-                $('.alert').append(
-                    '<div role="alert">Sorry, the username and  password combination was not recognized.</div>'
-                );
-            }
-            event.preventDefault();
-        });
-    });
-</script>
 
 </html>
